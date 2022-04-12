@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  app-backend:
+    build: .
+    restart: "unless-stopped"
+    networks:
+      - proxy
+    labels:
+      caddy: genusio.hwe.cz
+      caddy.handle_path: /api/*
+      caddy.handle_path.0_reverse_proxy: "{{upstreams 8080}}"
+ 
+networks:
+  proxy:
+    external: true
